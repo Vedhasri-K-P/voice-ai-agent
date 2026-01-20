@@ -46,12 +46,22 @@ Always answer thoughtfully, honestly, and as a real human candidate would.
       }
     );
 
-    const data = await hfResponse.json();
+const data = await hfResponse.json();
 
-    const aiReply =
-      Array.isArray(data) && data[0]?.generated_text
-        ? data[0].generated_text.split("Answer:").pop().trim()
-        : "I’m sorry, I couldn’t generate a response right now.";
+let generatedText = "";
+
+if (Array.isArray(data) && data[0]?.generated_text) {
+  generatedText = data[0].generated_text;
+} else if (data.generated_text) {
+  generatedText = data.generated_text;
+} else if (data.error) {
+  throw new Error(data.error);
+}
+
+const aiReply = generatedText
+  ? generatedText.split("Answer:").pop().trim()
+  : "I’m sorry, I couldn’t generate a response right now.";
+
 
     res.status(200).json({ reply: aiReply });
 
