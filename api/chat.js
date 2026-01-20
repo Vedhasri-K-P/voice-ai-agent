@@ -22,7 +22,7 @@ Answer style:
 - Personal insight + professional relevance + growth mindset
 
 Background:
-Vedhasri is a Computer Science undergraduate from Bangalore with strong interest in AIML.
+Vedhasri is a Computer Science undergraduate from Bangalore with strong interest in AI/ML.
 She has worked on AI projects in healthcare, legal tech and computer vision.
 She has experience building ML systems, RAG pipelines and user-friendly AI tools.
 She is applying for an AI Agent role.
@@ -40,8 +40,12 @@ Always answer honestly and thoughtfully.
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          inputs: `${systemPrompt}\n\nQuestion: ${message}\nAnswer:`,
-        }),
+  inputs: `${systemPrompt}\n\nQuestion: ${message}\nAnswer:`,
+  options: {
+    wait_for_model: true
+  }
+}),
+
       }
     );
 
